@@ -79,7 +79,7 @@ export default function PackageDetails() {
     <div className="border rounded-lg p-6 bg-white shadow-md">
       <Descriptions title=" " bordered column={1}>
         <Descriptions.Item label="Template Name">
-        {packageDetails.TemplateName}
+        {packageDetails.TemplateName || location.state.packageDetails.TemplateName}
         </Descriptions.Item>
         <Descriptions.Item label="Template Type">
         <Tag>{location.state.packageDetails.TemplateType} </Tag>
