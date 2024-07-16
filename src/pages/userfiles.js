@@ -108,12 +108,12 @@ export default function UserFiles() {
       key: "action",
       render: (text, record) => (
         <div className="flex justify-between items-center space-x-4">
-          <Link to={`/dashboard/clients/${record.UserName}`} state={{ userDetails: record }}>
+          <Link to={`/dashboard/clients/${record.ClientName}`} state={{ userDetails: record }}>
             View
           </Link>
           <Popconfirm
-            title={`Are you sure you want to delete ${record.UserName}?`}
-            onConfirm={() => handleDelete(record.UserName, record.UserId)}
+            title={`Are you sure you want to delete ${record.ClientName}?`}
+            onConfirm={() => handleDelete(record.ClientName, record.UserId)}
             okText="Yes"
             cancelText="No"
           >
