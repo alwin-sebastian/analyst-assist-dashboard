@@ -184,7 +184,7 @@ export default function UserDetails() {
               <h3 className="text-lg font-semibold mb-4">File Preview</h3>
               {selectedFile ? (
                 <iframe
-                  src={selectedFile.location}
+                  src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${selectedFile.location}`}
                   title={selectedFile.name}
                   width="100%"
                   height="600px"
