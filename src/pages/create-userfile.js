@@ -305,6 +305,7 @@ const generateFilledForms = async () => {
             className="m-4 w-1/4 self-center shadow-md"
             style={{backgroundColor: "#52c41a", color: "white"}}
             onClick={generateFilledForms}
+            loading={disabled} disabled={disabled}
             >Generate Filled Forms</Button>
 
         </div>
