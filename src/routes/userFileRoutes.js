@@ -4,7 +4,7 @@ import UserFiles from "../pages/userfiles";
 import CreateUserFile from "../pages/create-userfile";
 import UserDetails from "../pages/user-details";
 
-export default function PackageRoutes() {
+export default function UserFileRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Navigate to="clients" />} />
@@ -14,4 +14,4 @@ export default function PackageRoutes() {
             <Route path="clients/:username" element={<UserDetails />} />
         </Routes>
     );
-    }
+}

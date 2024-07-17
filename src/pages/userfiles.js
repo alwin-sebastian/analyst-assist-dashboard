@@ -113,7 +113,7 @@ export default function UserFiles() {
           </Link>
           <Popconfirm
             title={`Are you sure you want to delete ${record.ClientName}?`}
-            onConfirm={() => handleDelete(record.ClientName, record.UserId)}
+            onConfirm={() => handleDelete(record.ClientName, record.ClientId)}
             okText="Yes"
             cancelText="No"
           >
