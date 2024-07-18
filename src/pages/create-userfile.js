@@ -118,7 +118,7 @@ export default function CreateUserFile() {
       const response = await axios.post('https://b20os9s2j7.execute-api.us-east-1.amazonaws.com/test/userfiles/create-userfile', userData);
       console.log(response.data);
       setUserfileResponse(response.data?.userFile);
-      message.success('User file created successfully');
+      message.success('User file created successfully! Processing additional data...');
       console.log("User file response state:", userfileResponse);
       const newApiBody = {
         ClientId: response.data?.userFile.userId,

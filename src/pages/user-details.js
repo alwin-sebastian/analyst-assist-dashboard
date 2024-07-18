@@ -3,7 +3,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Descriptions, Spin, message, Tag, Typography, Button, Modal, Form, Input, Upload, Card, Layout, Menu } from "antd";
 import axios from "axios";
 import { UploadOutlined, FilePdfOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
-
+import ChatBox from "../components/ChatBox";
 
 const { Title } = Typography;
 const { Header, Sider, Content } = Layout;
@@ -19,6 +19,7 @@ export default function UserDetails() {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileIndex, setSelectedFileIndex] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
@@ -51,8 +52,9 @@ export default function UserDetails() {
       setFileList(newFileList);
     };
 
-    const handleFileClick = (file) => {
+    const handleFileClick = (file, index) => {
       setSelectedFile(file);
+      setSelectedFileIndex(index);
     };
   
     const toggle = () => {
@@ -169,8 +171,8 @@ export default function UserDetails() {
                 <Card
                   hoverable
                   cover={<FilePdfOutlined style={{ fontSize: '48px' }} />}
-                  className="p-2"
-                  onClick={() => handleFileClick(file)}
+                  className={`p-2 ${selectedFileIndex === index ? 'border-2 border-blue-500 bg-yellow-100' : ''}`}
+                  onClick={() => handleFileClick(file, index)}
                 >
                   <Card.Meta title={file.name} />
                 </Card>
@@ -184,6 +186,7 @@ export default function UserDetails() {
               <h3 className="text-lg font-semibold mb-4">File Preview</h3>
               {selectedFile ? (
                 <iframe
+                  key={selectedFile.location}
                   src={`https://mozilla.github.io/pdf.js/web/viewer.html?file=${selectedFile.location}`}
                   title={selectedFile.name}
                   width="100%"
@@ -196,9 +199,9 @@ export default function UserDetails() {
             </div>
           </Content>
         </Layout>
-        <div className="w-1/4 p-4 border-l bg-gray-600">
-          <h3 className="text-lg font-semibold mb-4">Chatbox</h3>
-          <p>Chatbox here...</p>
+        <div className="w-1/4 p-0 border-l">
+          {/* <h3 className="text-lg font-semibold mb-4">Chatbox</h3> */}
+          <ChatBox ClientId={userDetails.ClientId} />
         </div>
       </Layout>
   </div>

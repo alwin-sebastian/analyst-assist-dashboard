@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { Descriptions, Spin, message, Tag, Typography, Button, Modal, Form, Input, Upload, Card, Layout, Menu } from "antd";
+import { Descriptions, Skeleton, Spin, message, Tag, Typography, Button, Modal, Form, Input, Upload, Card, Layout, Menu } from "antd";
 import axios from "axios";
 import { UploadOutlined, FilePdfOutlined, MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 
@@ -69,7 +69,7 @@ export default function PackageDetails() {
     setCollapsed(!collapsed);
   };
 
-  if (!packageDetails) {
+  if (!packageDetails && !loading){
     return <p>No template details found</p>;
   }
 
@@ -79,17 +79,20 @@ export default function PackageDetails() {
     <div className="border rounded-lg p-6 bg-white shadow-md">
       <Descriptions title=" " bordered column={1}>
         <Descriptions.Item label="Template Name">
-        {packageDetails.TemplateName || location.state.packageDetails.TemplateName}
+        {loading ? <Skeleton.Input style={{ width: 200 }} active /> : packageDetails.TemplateName || location.state.packageDetails.TemplateName}
+        {/* {packageDetails.TemplateName || location.state.packageDetails.TemplateName} */}
         </Descriptions.Item>
         <Descriptions.Item label="Template Type">
-        <Tag>{location.state.packageDetails.TemplateType} </Tag>
+        {/* <Tag>{location.state.packageDetails?.TemplateType} </Tag> */}
+        {loading ? <Skeleton.Input style={{ width: 200 }} active /> : <Tag>{location.state.packageDetails?.TemplateType} </Tag>}
         </Descriptions.Item>
         <Descriptions.Item label="Template ID">
-            {packageDetails.TemplateId}
+            {/* {packageDetails.TemplateId} */}
+            {loading ? <Skeleton.Input style={{ width: 200 }} active /> : packageDetails.TemplateId}
         </Descriptions.Item>
         <Descriptions.Item label="Files">
         <ul>
-        {location.state.packageDetails.files.map((file, index) => (
+        {loading? '': location.state.packageDetails.files.map((file, index) => (
             <li key={index}>
             <a href={file.location} target="_blank" rel="noopener noreferrer">
                 {file.name}
@@ -165,7 +168,7 @@ export default function PackageDetails() {
   <Content style={{ padding: '0 24px', minHeight: 280 }}>
     <div className="p-4 bg-white">
       <h3 className="text-lg font-semibold mb-4">Form Preview</h3>
-      {packageDetails.Forms.map((form, index) => {
+      {packageDetails?.Forms?.map((form, index) => {
   const formFields = JSON.parse(form.FormFields);
   return (
     <div key={index} className="mb-6 p-4 border rounded-lg bg-gray-50 shadow">
@@ -175,6 +178,7 @@ export default function PackageDetails() {
           <div key={idx} className="border-b mb-4 pb-2">
             <h5 className="font-bold text-lg">{section}</h5>
             <div className="space-y-2">
+              {!formFields && <p>Template is under process, please check in again later</p>}
               {Object.entries(fields).map(([fieldName, fieldValue], fieldIdx) => {
                 const valueToDisplay = typeof fieldValue === 'object' ? JSON.stringify(fieldValue) : fieldValue;
                 return (
