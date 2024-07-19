@@ -53,7 +53,7 @@ const ChatBox = ({ ClientId }) => {
   return (
     <MainContainer responsive 
     // style={{ height: 'auto' }}
-    className="h-auto"
+    className="max-h-screen"
     >
       <ChatContainer>
         <ConversationHeader>

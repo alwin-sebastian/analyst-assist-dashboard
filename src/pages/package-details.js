@@ -169,7 +169,7 @@ export default function PackageDetails() {
     <div className="p-4 bg-white">
       <h3 className="text-lg font-semibold mb-4">Form Preview</h3>
       {!selectedFile && <p>Select a file to view its details</p>}
-      {selectedFile && packageDetails?.Forms?.map((form, index) => {
+      {/* {selectedFile && packageDetails?.Forms?.map((form, index) => {
   const formFields = JSON.parse(form.FormFields);
   return (
     <div key={index} className="mb-6 p-4 border rounded-lg bg-gray-50 shadow">
@@ -195,7 +195,37 @@ export default function PackageDetails() {
       </div>
     </div>
   );
-})}
+})} */}
+{selectedFile && packageDetails?.Forms?.map((form, index) => {
+                const matchingFile = location.state.packageDetails.files.find(file => file.fileId === form.FormId);
+                if (matchingFile && matchingFile.name === selectedFile.name) {
+                  const formFields = JSON.parse(form.FormFields);
+                  return (
+                    <div key={index} className="mb-6 p-4 border rounded-lg bg-gray-50 shadow">
+                      <h4 className="font-semibold text-xl mb-2">{form.FormName}</h4>
+                      <div className="grid grid-cols-1 gap-4">
+                        {Object.entries(formFields).map(([section, fields], idx) => (
+                          <div key={idx} className="border-b mb-4 pb-2">
+                            <h5 className="font-bold text-lg">{section}</h5>
+                            <div className="space-y-2">
+                              {Object.entries(fields).map(([fieldName, fieldValue], fieldIdx) => {
+                                const valueToDisplay = typeof fieldValue === 'object' ? JSON.stringify(fieldValue) : fieldValue;
+                                return (
+                                  <div key={fieldIdx} className="flex justify-between">
+                                    <strong>{fieldName}:</strong>
+                                    <span>{valueToDisplay}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+                return null; // Ensure we return null for forms that don't match the selected file
+              })}
     </div>
   </Content>
   </Layout>
