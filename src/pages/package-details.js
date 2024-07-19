@@ -155,7 +155,7 @@ export default function PackageDetails() {
                 <Card
                   hoverable
                   cover={<FilePdfOutlined style={{ fontSize: '48px' }} />}
-                  className="p-2"
+                  className={`p-2 ${selectedFile?.name === file.name ? 'border-2 border-blue-500 bg-yellow-100' : ''}`}
                   onClick={() => handleFileClick(file)}
                 >
                   <Card.Meta title={file.name} />
@@ -168,7 +168,8 @@ export default function PackageDetails() {
   <Content style={{ padding: '0 24px', minHeight: 280 }}>
     <div className="p-4 bg-white">
       <h3 className="text-lg font-semibold mb-4">Form Preview</h3>
-      {packageDetails?.Forms?.map((form, index) => {
+      {!selectedFile && <p>Select a file to view its details</p>}
+      {selectedFile && packageDetails?.Forms?.map((form, index) => {
   const formFields = JSON.parse(form.FormFields);
   return (
     <div key={index} className="mb-6 p-4 border rounded-lg bg-gray-50 shadow">
